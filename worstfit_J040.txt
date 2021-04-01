@@ -1,0 +1,40 @@
+worst fit J040
+
+def worstFit(blockSize, m, processSize, n):
+
+	assignment = [-1] * n 
+
+	for i in range(n):
+		
+		Idx = -1
+		for j in range(m):
+			if blockSize[j] >= processSize[i]:
+				if Idx == -1:
+					Idx = j
+				elif blockSize[Idx] < blockSize[j]:
+					Idx = j
+
+		if Idx != -1:
+			assignment[i] = Idx					
+			blockSize[Idx] -= processSize[i]	
+
+
+	print("Process No. Process Size Block no.")
+	for i in range(n):
+		print(i + 1, "		 ",
+			processSize[i], end = "	 ")
+		if assignment[i] != -1:
+			print(assignment[i] + 1)
+		else:
+			print("Not Allocated")
+
+
+if __name__ == '__main__':
+	blockSize = [100, 500, 200, 300, 600]
+	processSize = [212, 417, 112, 426]
+	m = len(blockSize)
+	n = len(processSize)
+
+	worstFit(blockSize, m, processSize, n)
+
+
